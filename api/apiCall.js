@@ -1,5 +1,4 @@
 const fetch = require("node-fetch");
-var rep;
 module.exports = function apiCall (apiPath, body, method = 'GET') {
     var connect = require("./connect.js");
     try {
@@ -19,17 +18,24 @@ module.exports = function apiCall (apiPath, body, method = 'GET') {
         })
         .then(async res =>  {
             try {
+            // console.log(res)
             var response = await res.json()
-            //console.log(response)
+            // console.log(response)
+            if (response.message && response.message.includes("rate limit")) {
+                // console.log("SelfBot ERROR : Rate limit sale merde !"); 
+                setTimeout(() => { module.exports(apiPath, body, method); }, 1000);
+            };
             if (response.message && response.message.includes("Unauthorized")) {console.log("SelfBot ERROR : Token incorrect !"); return process.exit(1)};
             if (response.limit && response.limit.includes("int value should be less than or equal to 100.")) {console.log("SelfBot ERROR : Valeur incorrect (Supérieur à 100) !"); return process.exit(1)};
             if (response.message && response.message.includes("Unknown Channel")) {console.log("SelfBot ERROR : Channel incorrect !"); return process.exit(1)};
             return response;
             } catch (e) {
+                // console.error("SELFBOT ERROR : " + e)
                 return;
             }
         })
     } catch (e) {
+        // console.error("SELFBOT ERROR : " + e)
         return;
     }
 }

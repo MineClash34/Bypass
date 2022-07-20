@@ -1,0 +1,17 @@
+{
+    "channelID": "id",
+    "tokenKey": "key",
+    "token": "token",
+    "hr": "false",
+    "hrTiming": "120",
+    "shrine": "false",
+    "tr": "false",
+    "trDelay": "-1500",
+    "showInfo": "true", 
+    "reactDelay": "2000",
+    "autoMine": "false",
+    "autoChop": "true",
+    "autoFish": "false",
+    "autoDig": "false"
+}
+
